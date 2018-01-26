@@ -15,6 +15,7 @@
         top:null,
         prev:null,
         next:null,
+        brother:null,
         child:null,
         parent:null,
         initialize:function(window){
@@ -28,7 +29,7 @@
             this.resize();
         },
         resize:function(){
-            RXLog(this.window.name+"_resize run");
+            RX.log(this.window.name+"_resize run");
         },
         destory:function(){
 

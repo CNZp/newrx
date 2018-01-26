@@ -15,14 +15,11 @@
     <script>
         RX.loadCSS({
             template: "platMain",
-            module: [
-                "/medias/style/plat/menu.css"]
+            module: ["/medias/style/plat/menu.css"]
         });
         RX.load({
             template: "form",
-            module: [["msgbox", 'layerExtend', "cookie"],
-                "/medias/src/plat/code/main/index.js"
-            ]
+            module: ["cookie","/medias/src/plat/code/main/index.js"]
         });
     </script>
     <script type="text/javascript">
@@ -54,7 +51,7 @@
 
 <body>
 <script>
-    loadingPages();
+    RX.loadingPages();
 </script>
 <div id="dcWrap" class="top">
     <div class="logo">

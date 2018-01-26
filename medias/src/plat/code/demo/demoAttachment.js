@@ -145,10 +145,10 @@ function createList() {
             openStack(window, "选择机构", "tree", "/plat/organ/organTree?func=workflowOrgan&type=xz&selectType=mul");
         },
         modelRender: function () {
-            RXLog("modelRender");
+            RX.log("modelRender");
         },
         getTheadHtml: function () {  //实现表头区域渲染接口
-            RXLog("getTheadHtml");
+            RX.log("getTheadHtml");
             var theads = "<thead>";
             theads += "<th style='width:5%'>序号</th>" +
                 "<th style='width:20%'>机构名称</th>  " +
@@ -157,11 +157,11 @@ function createList() {
             return theads;
         },
         getNewModel: function () { //实现接口，以关联创建的model
-            RXLog("getNewModel");
+            RX.log("getNewModel");
             return new ModelSingle();
         },
         getNewTrView: function (item, mode, display, index) {  //实现接口，以关联创建的行view
-            RXLog("getNewTrView");
+            RX.log("getNewTrView");
             return new SingleTrView({          //实例化列表tr view
                 model: item,                          //每行render所需的数据
                 renderCallback: mode,                //每render 一行执行的回调函数，也就是 tr view 的render方法  也就是 renderEditMode 方法。
@@ -177,7 +177,7 @@ function createList() {
         tagName: 'tr',
         className: 'rx-grid-tr',
         renderEditMode: function () {    //实现渲染接口
-            RXLog("renderEditMode");
+            RX.log("renderEditMode");
             var html =
                 "<td style='text-align:center'>" + this.index + "</td>" +
                 "<td style='text-align:center'><input type='text'  class='i_text' data-property='organName' data-model='" + this.model.get("ModelName") + "'/></td>" +
@@ -197,7 +197,7 @@ function createList() {
 }
 
 function a() {
-    RXLog("44")
+    RX.log("44")
 }
 
 function send() {

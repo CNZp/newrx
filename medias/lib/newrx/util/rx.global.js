@@ -4,7 +4,8 @@
  */
 (function (global) {
 
-    return;
+
+
     //重写jquery的ajax方法（主要解决项目路径问题）
     //noinspection UnreachableCodeJS
     var _ajax = $.ajax;
@@ -37,7 +38,7 @@
                     _top.location.href = document.location.origin + "/" + RX.ctxPath + "/login";
                     return;
                 } else if (data === "ajax notfound") {
-                    RX.rxLog(data + " :" + turl);
+                    RX.RX.log(data + " :" + turl);
                     return;
                 }
                 fn.success(data, textStatus);
@@ -57,7 +58,7 @@
                 _top.location.href = document.location.origin + "/" + RX.ctxPath + "/login";
                 return;
             } else if (data === "ajax notfound") {
-                RX.rxLog(data + " :" + turl);
+                RX.RX.log(data + " :" + turl);
                 return;
             }
             if (success) {
@@ -78,7 +79,7 @@
                 _top.location.href = document.location.origin + "/" + RX.ctxPath + "/login";
                 return;
             } else if (data === "ajax notfound") {
-                RX.rxLog(data + " :" + turl);
+                RX.RX.log(data + " :" + turl);
                 return;
             }
             if (success) {
@@ -169,7 +170,7 @@
      * 控制台输出信息
      * @param content 输出内容
      */
-    RX.rxLog = function (content) {
+    RX.log = function (content) {
         if (window.console && window.console.log) {
             console.log(content);
         }
@@ -326,7 +327,7 @@
                         func(treeId, nodes[0]);
                     }
                 } catch (e) {
-                    RX.rxLog("获取不到ztree，检查设置id");
+                    RX.RX.log("获取不到ztree，检查设置id");
                 }
         }
     };

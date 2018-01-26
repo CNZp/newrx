@@ -3,14 +3,13 @@
  */
 $(function () {
     //添加窗口层次管理
-    addFrameWin(window.frames["MainIframe"], window);
     RX.addFrame(window.frames["MainIframe"]);
     //初始化内容区域高
     $("#leftMenu").height($(window).height() - 40);
     //生成一级菜单
-    createMenu();
+    // createMenu();
     //初始化用户名
-    $("#user_name").html(decode($.cookie('userName')));
+    $("#user_name").html(RX.decode($.cookie('userName')));
     //初始化第一个样式
     $("#menu a:first").addClass("selected");
 });
@@ -93,5 +92,5 @@ function gotoUrl(obj, url) {
 
 //修改密码
 function changePassword() {
-    RX.openStack({title:"修改密码", areaType:"small", url:"leftMenu.html",shade:false,id:"changePassword"});
+    RX.openStack({title:"修改密码", areaType:"small", url:"leftMenu.html",shade:false});
 }

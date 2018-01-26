@@ -13,11 +13,11 @@
     RX.getForm = function(name){
         return formPool[name];
     };
-    RX.addForm = function(form){
+    function _addForm(form){
         formPool[form.window.name] = form;
     };
     RX.addFrame = function(window){
-        RX.addForm(new RX.Form(window));
+        _addForm(new RX.Form(window));
     };
 
     //新版窗口管理打开弹出层
@@ -112,10 +112,10 @@
 
     if(root === _top){
         var form = RX.form = new RX.Form(root);
-        RX.addForm(form);
+        _addForm(form);
         //修改
         RX.loadCssBlocked([].concat(["layer", "/medias/plugin/loading/msgbox.css"]));
-        RX.loadScriptBlocked(["layer", "layerExtend", "/medias/lib/plat/layerManager.js", "msgbox"]);
+        RX.loadScriptBlocked(["layer", "/medias/lib/plat/layerManager.js", "msgbox"]);
     }else{
         var form = _top.RX.getForm(root.name);
         form.window = root;

@@ -90,13 +90,13 @@ var BaseGridModel = Backbone.Model.extend({
         //获取搜索区model名称
         var listmodel = this, sName = listmodel.get("SearchModelName");
         if (!sName) {
-            RXLog("未设置搜索区ModelName");
+            RX.log("未设置搜索区ModelName");
             return;
         }
         //获取搜索区div元素
         var sEl = $("*[data-model=" + sName + "]");
         if (sEl.length == 0) {
-            RXLog(sName + "找不到对应的搜索区");
+            RX.log(sName + "找不到对应的搜索区");
             return;
         }
         sEl = sEl.eq(0);

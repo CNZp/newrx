@@ -12,9 +12,57 @@ window.RX = window.RX || {};
 RX.browser = {
     debug: false,     //是否开启加载日志
     canCache: false,      //页面js、css是否可缓存
-    isIE: !!window.ActiveXObject,    //是否为IE
-    isIE6: !!window.ActiveXObject && !window.XMLHttpRequest,     //是否为IE6
-    isIE8: !!window.ActiveXObject && !!document.documentMode        //是否为IE8
+    type: function () {
+        var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+        if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1) {
+            return "IE";
+        }
+        else if (userAgent.indexOf("Chrome") > -1 && userAgent.indexOf("Safari")) {
+            return "Chrome";
+        }
+        else if (userAgent.indexOf("Firefox")) {
+            return "Firefox";
+        }
+        else if (userAgent.indexOf("Windows NT 6.1; Trident/7.0;") > -1 && !isIE) {
+            return "Edge";
+        }
+        else if (userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") == -1) {
+            return "Safari";
+        }
+        else if (userAgent.indexOf("Opera") > -1) { //判断是否Opera浏览器
+            return "Opera";
+        } else {
+            return "not found";
+        }
+    }(),
+    version: function () {
+        var userAgent = navigator.userAgent;
+        if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1) {
+            var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+            reIE.test(userAgent);
+            var fIEVersion = parseFloat(RegExp["$1"]);
+            if (fIEVersion == 7) {
+                return "7";
+            }
+            else if (fIEVersion == 8) {
+                return "8";
+            }
+            else if (fIEVersion == 9) {
+                return "9";
+            }
+            else if (fIEVersion == 10) {
+                return "10";
+            }
+            else if (fIEVersion == 11) {
+                return "11";
+            }
+            else {
+                if (!!window.ActiveXObject && !window.XMLHttpRequest) {
+                    return "6";
+                }
+            }
+        }
+    }()
 };
 
 //加载项配置
@@ -28,7 +76,11 @@ RX.config = {
     platformUrl: 'http://localhost:8080/qbgzpt/oragn/crossDomain',    //设置工作平台的处理的页面
 
     //默认加载库，引入本js会自动加载所需的库文件（阻塞式）
-    defaultLib: ["jquery", "underscore", "tpl", "formUtils", "validTip", "perfectLoad"],
+    defaultLib: [
+        "jquery","json2","underscore","tpl","validTip","perfectLoad",
+        "global-util","data-util","date-util","dom-util","event-util","object-util",
+        "Base","Form","formManage-util"
+    ],
 
     // 设置别名，方便调用
     alias: {
@@ -69,18 +121,23 @@ RX.config = {
         "perfectLoad": "/medias/plugin/perfectLoad/PerfectLoad.js",
         "button": "/medias/lib/rx/RX.button-0.1.js",
         "Base": "/medias/lib/newrx/base/RX.Base-0.1.js",
-        "Form": "/medias/lib/newrx/base/RX.Form-0.1.js"
+        "Form": "/medias/lib/newrx/base/RX.Form-0.1.js",
+        "formManage-util": "/medias/lib/newrx/util/rx.form.manage.js",
+        "global-util": "/medias/lib/newrx/util/rx.global.js",
+        "data-util": "/medias/lib/newrx/util/rx.data.js",
+        "date-util": "/medias/lib/newrx/util/rx.date.js",
+        "dom-util": "/medias/lib/newrx/util/rx.dom.js",
+        "event-util": "/medias/lib/newrx/util/rx.event.js",
+        "object-util": "/medias/lib/newrx/util/rx.object.js"
     },
 
     //设置模板，方便复用
     template: {
-        'grid': [['json2', 'underscore'],
-            ['backbone', 'modelRenderer'],
+        'grid': [['backbone', 'modelRenderer'],
             ['relational', 'validate', 'datagrid', 'datePicker', 'button'],
             ['detailModel', 'gridModel', 'searchView']],
-        'form': [['json2', 'underscore'],
-            ['backbone', 'modelRenderer'],
-            ['relational', 'validate', 'validTip', 'datePicker'],
+        'form': [['backbone', 'modelRenderer'],
+            ['relational', 'validate', 'datePicker'],
             ['detailModel', 'formView', 'jqueryForm', 'attachmentView']]
     },
     // 设置别名，方便调用
@@ -110,14 +167,14 @@ RX.config = {
     //设置模板，方便复用
     cssTemplate: {
         'platMain': ['global', 'platMain', 'iconfont', 'validTip']
-    },
-
-    //可加载RX模块，类似于alias
-    module: {
-        "Base": "/medias/lib/newrx/base/RX.Base-0.1.js",
-        "Form": "/medias/lib/newrx/base/RX.Form-0.1.js",
-        "formManage": "/medias/lib/newrx/util/rx.form.manage.js"
     }
+
+    // //可加载RX模块，类似于alias
+    // ,module: {
+    //     "Base": "/medias/lib/newrx/base/RX.Base-0.1.js",
+    //     "Form": "/medias/lib/newrx/base/RX.Form-0.1.js",
+    //     "formManage": "/medias/lib/newrx/util/rx.form.manage.js"
+    // }
 };
 
 //项目路径，RX命名调整
@@ -950,16 +1007,16 @@ RX.ctxPath = RX.config.ctxPath || "";
                 if (si == sl - 1) {
                     if (i == l - 1 && options.callback) {
                         loadstr.push(".script('" + turl + "').wait(options.callback)");
-                        RX.browser.debug && RXLog("RX.load:(script)" + turl);
-                        RX.browser.debug && RXLog("RX.load:wait and callback");
+                        RX.browser.debug && RX.log("RX.load:(script)" + turl);
+                        RX.browser.debug && RX.log("RX.load:wait and callback");
                     } else {
                         loadstr.push(".script('" + turl + "').wait()");
-                        RX.browser.debug && RXLog("RX.load:(script)" + turl);
-                        RX.browser.debug && RXLog("RX.load:wait");
+                        RX.browser.debug && RX.log("RX.load:(script)" + turl);
+                        RX.browser.debug && RX.log("RX.load:wait");
                     }
                 } else {
                     loadstr.push(".script('" + turl + "')");
-                    RX.browser.debug && RXLog("RX.load:(script)" + turl);
+                    RX.browser.debug && RX.log("RX.load:(script)" + turl);
                 }
             }
         }
@@ -1057,7 +1114,7 @@ RX.ctxPath = RX.config.ctxPath || "";
      */
     RX.load = function (options) {
         if (!options || typeof(options) != "object") {
-            RX.browser.debug && RXLog("RX.load:参数异常");
+            RX.browser.debug && RX.log("RX.load:参数异常");
             return;
         }
         if (options.async == false) {
@@ -1218,46 +1275,45 @@ RX.ctxPath = RX.config.ctxPath || "";
         }
     }
 
-    /**
-     * @private
-     * @description 获取Js别名对应的详细地址
-     * @param {String} alias 别名
-     * @return {String} 详细地址
-     */
-    function _handleModule(module) {
-        var tLocation = RX.config.module[module];
-        tLocation = tLocation ? tLocation : module;
-        if (!RX.browser.canCache) {
-            if (tLocation.indexOf("?") > -1) {
-                tLocation = tLocation + "&r=" + Math.random();
-            } else {
-                tLocation = tLocation + "?r=" + Math.random();
-            }
-        }
-        return tLocation;
-    }
-
-    // 加载RX命名模块
-    RX.include = function (modules,callback) {
-        var urls = [];
-        if (modules) {
-            if (typeof(modules) === "object") {
-                for (var i = 0; i < modules.length; i++) {
-                    // urls.push([_handleModule(modules[i])]);
-                    document.write('<script type="text/javascript" src="' + RX.handlePath(_handleModule(modules[i])) + '"></script>');
-                }
-            } else if (typeof(modules) === "string") {
-                urls.push([_handleModule(modules)]);
-                document.write('<script type="text/javascript" src="' + RX.handlePath(_handleModule(modules)) + '"></script>');
-            }
-        }
-        // _loadScript(urls,{callback:callback});
-    };
+    // /**
+    //  * @private
+    //  * @description 获取Js别名对应的详细地址
+    //  * @param {String} alias 别名
+    //  * @return {String} 详细地址
+    //  */
+    // function _handleModule(module) {
+    //     var tLocation = RX.config.module[module];
+    //     tLocation = tLocation ? tLocation : module;
+    //     if (!RX.browser.canCache) {
+    //         if (tLocation.indexOf("?") > -1) {
+    //             tLocation = tLocation + "&r=" + Math.random();
+    //         } else {
+    //             tLocation = tLocation + "?r=" + Math.random();
+    //         }
+    //     }
+    //     return tLocation;
+    // }
+    //
+    // // 加载RX命名模块
+    // RX.include = function (modules,callback) {
+    //     var urls = [];
+    //     if (modules) {
+    //         if (typeof(modules) === "object") {
+    //             for (var i = 0; i < modules.length; i++) {
+    //                 // urls.push([_handleModule(modules[i])]);
+    //                 document.write('<script type="text/javascript" src="' + RX.handlePath(_handleModule(modules[i])) + '"></script>');
+    //             }
+    //         } else if (typeof(modules) === "string") {
+    //             urls.push([_handleModule(modules)]);
+    //             document.write('<script type="text/javascript" src="' + RX.handlePath(_handleModule(modules)) + '"></script>');
+    //         }
+    //     }
+    //     // _loadScript(urls,{callback:callback});
+    // };
 
     //操作代码
     //加载默认库js
     RX.loadScriptBlocked(RX.config.defaultLib);
-    RX.include(["Base","Form","formManage"]);
     RX.handleSrc();
 })(this);
 

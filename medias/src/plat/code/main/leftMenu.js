@@ -1,7 +1,7 @@
 $(function () {
     //添加窗口层次管理
-    addFrameWin(window.frames["MainIframeR"], window);
-    var index = GetQueryString("index");
+    // addFrameWin(window.frames["MainIframeR"], window);
+    var index = RX.getQueryString("index");
     var $p = $("#nav");
     $p.empty();
     if (index) {

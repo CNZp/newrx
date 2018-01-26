@@ -111,7 +111,7 @@ $.ajax = function (opt) {
                 _top.location.href = document.location.origin + "/" + RX.ctxPath + "/login";
                 return;
             } else if (data === "ajax notfound") {
-                RXLog(data + " :" + turl);
+                RX.log(data + " :" + turl);
                 return;
             }
             fn.success(data, textStatus);
@@ -131,7 +131,7 @@ $.post = function (url, data, success, error) {
             _top.location.href = document.location.origin + "/" + RX.ctxPath + "/login";
             return;
         } else if (data === "ajax notfound") {
-            RXLog(data + " :" + turl);
+            RX.log(data + " :" + turl);
             return;
         }
         if (success) {
@@ -152,7 +152,7 @@ $.get = function (url, data, success, error) {
             _top.location.href = document.location.origin + "/" + RX.ctxPath + "/login";
             return;
         } else if (data === "ajax notfound") {
-            RXLog(data + " :" + turl);
+            RX.log(data + " :" + turl);
             return;
         }
         if (success) {
@@ -1349,7 +1349,7 @@ function initTableSetting(gridModel, columns, searchJson) {
             }
         };
     } else {
-        RXLog("页面不存在setting按钮，无法初始化设置面板。");
+        RX.log("页面不存在setting按钮，无法初始化设置面板。");
         return {};
     }
 }
@@ -2370,7 +2370,7 @@ function rx_gc() {
     }
 }
 
-function RXLog(content) {
+function RX.log(content) {
     if (window.console && window.console.log) {
         console.log(content);
     }

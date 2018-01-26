@@ -293,7 +293,7 @@ var DetailModel = Backbone.RelationalModel.extend({
 
                     var pro = $(t).attr("data-property");
                     if (initJson[model.className][pro] == undefined) {
-                        RXLog(model.get("ModelName") + "的" + pro + "属性配置不存在");
+                        RX.log(model.get("ModelName") + "的" + pro + "属性配置不存在");
                     }
                     if ($.inArray(pro, classJson.state.disable) == -1) {
                         if (initJson[model.className][pro].disabled == true) {
@@ -321,7 +321,7 @@ var DetailModel = Backbone.RelationalModel.extend({
                 $("*[data-model=" + model.get("ModelName") + "][data-property]").each(function (i, t) {
                     var pro = $(t).attr("data-property");
                     if (initJson[model.className][pro] == undefined) {
-                        RXLog(model.get("ModelName") + "的" + pro + "属性配置不存在");
+                        RX.log(model.get("ModelName") + "的" + pro + "属性配置不存在");
                     }
                     if ($.inArray(pro, classJson.state.enable) == -1) {
                         if (!$(t).hasClass("disabled")) {

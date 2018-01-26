@@ -48,6 +48,6 @@ function getParentDict() {
     if (pdictCode && pdictIsEmpty == 0) {
         return JsCache(pdictCode, null);
     } else {
-        RXLog("没有上级字典，或上级字典为空");
+        RX.log("没有上级字典，或上级字典为空");
     }
 }

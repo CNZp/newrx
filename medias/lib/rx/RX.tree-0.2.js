@@ -25,7 +25,7 @@
                             handleFunc(treeId, nodes[0]);
                         }
                     } catch (err) {
-                        RXLog("获取不到ztree，检查设置id");
+                        RX.log("获取不到ztree，检查设置id");
                     }
                 //异步加载成功执行的函数
                 if (func && typeof func === "function") {

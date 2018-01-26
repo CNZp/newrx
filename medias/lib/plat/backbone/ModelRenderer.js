@@ -356,7 +356,7 @@ MR.prototype = {
             var key2 = $(t).attr("data-property");
             var value2 = model.initJson[model.className][$(t).attr("data-property")];
             if (value2 == null) {
-                RXLog(model.get("ModelName") + "属性" + key2 + "未定义");
+                RX.log(model.get("ModelName") + "属性" + key2 + "未定义");
             }
             if (value2.type != "file" && $(t).is(":hidden")) {
                 return true;
@@ -707,7 +707,7 @@ MR.prototype = {
         var keyValue = model.get(pro);
         var value2 = initJson[model.className][pro];
         if (value2 == undefined) {
-            RXLog(model.get("ModelName") + "的" + pro + "属性配置不存在");
+            RX.log(model.get("ModelName") + "的" + pro + "属性配置不存在");
         }
         //先去除
         if (jqueryS.hasClass("hideElement")) {

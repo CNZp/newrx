@@ -80,10 +80,10 @@ jQuery.MyCommon = {
         var options = $.extend(true, {delayTime: 100, sleep: 0}, option);
         var loadingMask = $('#loadingPage');
         setTimeout(function () {
-                loadingMask.animate(isIE6 ? {"filter": "Alpha(opacity=0)"} : {"opacity": 0},
+                loadingMask.animate(RX.browser.type == "6"? {"filter": "Alpha(opacity=0)"} : {"opacity": 0},
                     options.delayTime,
                     function () {
-                        isIE6 && removeIframe($(this).find(".bgiframe")[0]);
+                        RX.browser.type == "6" && removeIframe($(this).find(".bgiframe")[0]);
                         $(this).remove();
                     });
             },

@@ -251,7 +251,7 @@ function chooseOrganPostUser(saveAddUserPool, saveNotUserPool, saveAddPostPool, 
                     if (index > -1) {
                         dataPool.saveOrgans[index].saveValue = checkFlag ? "2" : "1";
                     } else {
-                        RXLog("树节点显示已经保存的机构数据和查出来的数据不一致");
+                        RX.log("树节点显示已经保存的机构数据和查出来的数据不一致");
                     }
                 } else {
                     treeNode.checkFlag = checkFlag;
@@ -267,7 +267,7 @@ function chooseOrganPostUser(saveAddUserPool, saveNotUserPool, saveAddPostPool, 
                             //删除
                             dataPool.gxOrgans.splice(index, 1);
                         } else {
-                            RXLog("添加数据出错");
+                            RX.log("添加数据出错");
                         }
                     }
                 }
@@ -928,7 +928,7 @@ function chooseOrganPostUser(saveAddUserPool, saveNotUserPool, saveAddPostPool, 
                             treeNode.checkFlag = false;
                             dataPool.gxOrgans.splice(index, 1);
                         } else {
-                            RXLog("删除数据出错！！！");
+                            RX.log("删除数据出错！！！");
                             return;
                         }
                     }
@@ -951,7 +951,7 @@ function chooseOrganPostUser(saveAddUserPool, saveNotUserPool, saveAddPostPool, 
                         treeNode.checkFlag = false;
                         delete dataPool.gxAddBasePostPool[selData.id];
                     } else {
-                        RXLog("删除数据出错！！！");
+                        RX.log("删除数据出错！！！");
                         return;
                     }
                     basePostZtree.ztree.updateNode(treeNode);
@@ -978,7 +978,7 @@ function chooseOrganPostUser(saveAddUserPool, saveNotUserPool, saveAddPostPool, 
                     if (treeNode) {
                         objUtils.clearData([dataPool.gxAddUserPool, dataPool.gxNotUserPool], [dataPool.saveAddUserPool, dataPool.saveNotUserPool], treeNode.handleId);
                     } else {
-                        RXLog("包含岗位数据不一致");
+                        RX.log("包含岗位数据不一致");
                     }
 
                 } else if (area === "outPost") {
@@ -1003,7 +1003,7 @@ function chooseOrganPostUser(saveAddUserPool, saveNotUserPool, saveAddPostPool, 
                     if (treeNode) {
                         objUtils.clearData([dataPool.gxAddUserPool, dataPool.gxNotUserPool], [dataPool.saveAddUserPool, dataPool.saveNotUserPool], treeNode.handleId);
                     } else {
-                        RXLog("包含岗位数据不一致");
+                        RX.log("包含岗位数据不一致");
                     }
                 } else if (area === "inUser") {
                     renderFunc = showObj.renderInUsers;
@@ -1015,7 +1015,7 @@ function chooseOrganPostUser(saveAddUserPool, saveNotUserPool, saveAddPostPool, 
                     } else if (selData.organId) {
                         key = selData.organId + "jg";
                     } else {
-                        RXLog("用户无所属机构以及岗位");
+                        RX.log("用户无所属机构以及岗位");
                     }
                     if (dataPool.saveAddUserPool[key]) {
                         var index = objUtils.isCheck(dataPool.saveAddUserPool[key], selData);
@@ -1028,7 +1028,7 @@ function chooseOrganPostUser(saveAddUserPool, saveNotUserPool, saveAddPostPool, 
                             dataPool.gxAddUserPool[key].splice(index, 1);
                         }
                     } else {
-                        RXLog("包含的用户找不到");
+                        RX.log("包含的用户找不到");
                     }
                 } else if (area === "outUser") {
                     renderFunc = showObj.renderOutUsers;
@@ -1039,7 +1039,7 @@ function chooseOrganPostUser(saveAddUserPool, saveNotUserPool, saveAddPostPool, 
                     } else if (selData.organId) {
                         key = selData.organId + "jg";
                     } else {
-                        RXLog("用户无所属机构以及岗位");
+                        RX.log("用户无所属机构以及岗位");
                     }
                     if (dataPool.saveNotUserPool[key]) {
                         var index = objUtils.isCheck(dataPool.saveNotUserPool[key], selData);
@@ -1052,10 +1052,10 @@ function chooseOrganPostUser(saveAddUserPool, saveNotUserPool, saveAddPostPool, 
                             dataPool.gxNotUserPool[key].splice(index, 1);
                         }
                     } else {
-                        RXLog("排除的用户找不到");
+                        RX.log("排除的用户找不到");
                     }
                 } else {
-                    RXLog("数据没找到区域");
+                    RX.log("数据没找到区域");
                 }
                 if (renderFunc) {
                     renderFunc.call(showObj);
