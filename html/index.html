@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>首页</title>
+    <script src="/newrx/medias/RX.load.js"></script>
+    <style>
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+    <script>
+        RX.loadCSS({
+            template: "platMain",
+            module: [
+                "/medias/style/plat/menu.css"]
+        });
+        RX.load({
+            template: "form",
+            module: [["msgbox", 'layerExtend', "cookie"],
+                "/medias/src/plat/code/main/index.js"
+            ]
+        });
+    </script>
+    <script type="text/javascript">
+        function menuFix() {
+            var sfEls = document.getElementById("menu").getElementsByTagName("li");
+            for (var i = 0; i < sfEls.length; i++) {
+                if (sfEls[i].className && sfEls[i].className == "im") {
+                    sfEls[i].onmouseover = function () {
+                        this.className += (this.className.length > 0 ? " " : "") + "sfhover";
+                        var a = this.getElementsByTagName("A")[0];
+                        a.className += (a.className.length > 0 ? " " : "") + "mouseOver";
+                    };
+
+                    sfEls[i].onmouseout = limenu_hid;
+                }
+            }
+        }
+
+        function limenu_hid() {
+            var m = this;
+            m.className = m.className.replace(new RegExp("( ?|^)sfhover\\b"), "");
+            var a = m.getElementsByTagName("A")[0];
+            a.className = a.className.replace(new RegExp("( ?|^)mouseOver\\b"), "");
+        }
+
+        window.onload = menuFix;
+    </script>
+</head>
+
+<body>
+<script>
+    loadingPages();
+</script>
+<div id="dcWrap" class="top">
+    <div class="logo">
+        <img basesrc="/medias/style/plat/image/common/plat_logo.png" title="基础平台v3.0"/>
+    </div>
+    <ul id="menu">
+    </ul>
+    <div class="user">
+        <div class="user-box">
+            <p><img basesrc="/medias/style/plat/image/common/photo.jpg"/><font id="user_name"></font>&nbsp;&nbsp;<i class="iconfont">&#xe615;</i></p>
+            <!--<p id="user_name"><i class="iconfont">&#xe615;</i></p>-->
+            <!--个人信息下拉-->
+            <div class="Navigation_simple" style="width: 200px;right: 20px;">
+                <div class="Navigation_simple_top">
+                    <img basesrc="/medias/style/plat/image/common/tail_shadow2x.png"/>
+                </div>
+                <div class="Navigation_simple_center" style="height: 150px;max-height: none;">
+                    <ul class="tasks">
+                        <!--<li><a href=""><i class="iconfont">&#xe616;</i>帮助说明</a></li>-->
+                        <li><a href="#none" onclick="changePassword()"><i class="iconfont">&#xe616;</i>修改密码</a></li>
+                        <li><a href="/newrx/logout"><i class="iconfont">&#xe616;</i>退出系统</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="box">
+    <iframe name="MainIframe" id="mainframe" frameborder="0" width="100%" height="100%" scrolling="auto"
+            src="leftMenu.html"></iframe>
+</div>
+<script type="text/javascript">
+    $(function () {
+        //初始化内容区域高度
+        $("#mainframe").height($(window).height() - $(".top").outerHeight());
+    })
+    //页面大小改变时，触发jquery的resize方法，自适应拖拽
+    $(window).resize(function () {
+        $("#mainframe").height($(window).height() - $(".top").outerHeight());
+    })
+</script>
+</body>
+</html>

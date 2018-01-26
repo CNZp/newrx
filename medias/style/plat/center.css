@@ -1,0 +1,34 @@
+/*提醒*/
+.homepage{width: auto;margin: 0 auto 0;padding: 20px;overflow-y:hidden;overflow-x:hidden;height:auto;position: relative;}
+.Leftxx{float:left;width:48.5%;}
+.Rightxx{float:right;width:48.5%;}
+.hdd{padding: 10px 10px;}
+.boxcenter{float: left;width:100%;border:0px solid #e6e6eb;overflow: hidden;margin: 0 0 20px;background: #fff;border-radius: 2px;}
+.boxbody{float: left;width: 100%;height:190px;overflow-x:hidden;overflow-y: hidden;padding:5px 0px 5px 0px;}
+.boxbody p{width: 100%;line-height: 40px;color: #999;font-size: 14px;text-align: center;}
+.boxcentertop{width:100%;height:32px;line-height: 32px;border-bottom: 1px solid #e8e8e8;}
+.boxcentertop h1{color: #fff;background: #126BA0;font-size:14px;float:left;width: auto;height: 32px;line-height: 32px;font-weight: normal;padding: 0 15px;border-radius: 2px 2px 0 0;}
+.boxcentertop h1 i{float: left;margin: 0px 5px 0 0;font-size: 16px;}
+.boxcentertop a{color:#b2b2b2;font-size:12px;float:right;display:block;margin-right: 10px;_margin-right: 5px;}
+.boxcentertop a:hover{color: #126BA0;}
+.boxcentertop a img{width:7px;height:4px;cursor:pointer;float:right;display:block;margin:13px 12px 0 0;_margin:-17px 3px 0 0}
+.boxcentertop p{float:right;margin:4px 8px 0 0;color:red}
+.boxcenterbottom{float:left;width:99%;padding:5px 0 0 10px}
+.coat{width:98%;display:block;margin:6px auto 0}
+.coat li{width:100%;height:30px;line-height:30px;font-size: 12px;}
+.coat li a{float:left;color:#555;font-size: 13px;padding: 0 6px;position: relative;width: 70%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.coat li i{float: left;font-size: 16px;color: #999;margin: 0 0px 0 5px;}
+.coat li a em{width: 8px;height: 8px;position: absolute;top: 1px;right: 0px;background: url(../image/Reddot.png) no-repeat 0 0;}
+.coat li a.unread{font-weight: bold;color: #000;}
+.coat li a:hover{text-decoration:none;color: #126BA0;}
+.coat li span{float:right;margin-right:5px;color:#b2b2b2}
+.tbtx{float: left;width:100%;margin-top: 10px;}
+.tbtx li{float: left;display: inline;font-size:12px;margin: 0 10px;}
+.tbtx li a{color:#fff;float:left;position: relative;display: block;width: 85px;height: 85px;border: 0px solid #111;text-align: center;border-radius: 2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.tbtx li a i{display: block;margin: 22px auto 15px;font-size: 36px;color: #0095ff;}
+.tbtx li a span{position: absolute;top: 8px;right: 15px;z-index: 999;font-size: 12px;width: auto;height: 18px;line-height: 18px;padding: 0 5px;background: red;color: #fff;text-align: center;border-radius: 2px;}
+.tbtx li a:hover{border: 0px solid #333;color: #fff;background: #4e4e4e; background: rgba(255,255,255,0.15);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#3f000000,endColorstr=#3f000000); /*IE8支持*/}
+.currentPic{float: left;margin: 10px 0 0 210px;}
+.currentPic li{float: left;display: inline;margin: 0 5px;}
+.currentPic li a{float: left;display: block;width: 30px;height: 4px;background: #666;}
+.currentPic li a.selected{background: #00df00;}/*提醒*/

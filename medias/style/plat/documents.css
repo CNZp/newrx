@@ -1,0 +1,57 @@
+﻿/*文书样式*/
+.docbox{width:100%;height:100%;overflow-x:hidden;overflow-y:auto;}
+.docBook{
+    width:650px;	
+    margin:20px auto;
+    border:1px solid #d6d6d6;
+    background:#fff;
+    padding:30px 100px;
+}
+
+.docTable{
+    width:100%;
+    height:100%;
+    font-size:14px;
+    background-color:#fff;
+}
+.docTable caption b{font-size:20px;font-weight:bold}
+.docTable th{font-weight:normal; vertical-align: middle}
+.docTable tr td{height:40px;line-height: 40px;vertical-align: middle}
+.docTextBox{width:160px;height:20px;line-height:20px;text-align:left;border-top:1px solid #abadb3;border-left:1px solid #abadb3;border-right:1px solid #e2e3ea;border-bottom:1px solid #e2e3ea;float:left;}
+.docTable caption{text-align: center;height:30px;line-height: 30px;}
+.docTxtArea{height:40px;border:1px #abadb3 solid}
+.alignRight{text-align:right;text-indent:30px}
+
+
+.docBook h1{ width:100%; height:50px; line-height:50px; font-size:26px; font-weight:bold; text-align:center;  padding:20px 0px 50px 0px; }
+.docBook h2{ width:100%; font-size:16px; font-weight:normal; text-decoration:underline; }
+.docBook p{ line-height:45px; font-size:16px; padding:20px 0px; }
+.buttonz{background:#fff;width:70px;height:28px;border:0 none;color:#333;line-height:26px;text-align:center;cursor:pointer;font-size:14px;margin-left:2px;border:1px solid #c8c8c8;
+border-radius: 2px; /* 所有角都使用半径为5px的圆角，此属性为CSS3标准属性 */ 
+-moz-border-radius: 2px; /* Mozilla浏览器的私有属性 */ 
+-webkit-border-radius: 2px; /* Webkit浏览器的私有属性 */ }
+.buttonz:hover{ color:#3a83e1 }
+
+.doc_text{font-size:16px;height:30px;line-height:30px;text-align:center;border:none;border-bottom:1px #000 solid;color:#000}
+.doc_layer{height:30px;line-height:30px;text-align:center;color:#333;border:none;border-bottom:1px #000 solid;background:#fff url(./image/common/toolbar_find.png) no-repeat right 2px;cursor:pointer;}
+.doc_date{width:150px;height:30px;line-height:30px;text-align:center;color:#333;border:none;border-bottom:1px #000 solid;background:#fff url(image/common/datePicker.gif) no-repeat right 0}
+.doc_textarea{width:100%;height:80px;border:none;border-bottom:1px #000 solid;color:#333;overflow:auto;text-indent:2px}
+.doc_select{width:100%;border:none;border-bottom:1px #000 solid;height:30px;color:#333}
+.doc_radio{background:none}
+.doc_checkbox{background:none}
+.doc_file{width:100%;border:none;border-bottom:1px #000 solid;height:30px;color:#333}
+
+.docBook .TextBoxErr{border:1px solid #ff0000;background:#fff}
+font.span_show_ellipsis{}
+
+
+
+
+
+
+
+
+
+
+
+

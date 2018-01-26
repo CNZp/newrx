@@ -1,0 +1,55 @@
+  html, body {
+            height: 100%;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        * {
+            padding: 0;
+            margin: 0
+        }
+
+        .thinkTable div {
+            height: 30px;
+            line-height: 30px;
+            font-size: 12px;
+            text-align: left;
+        }
+
+        .thinkTable ul li {
+            float: left;
+            color: #333;
+            text-indent: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            width: 100%;
+            height: 22px;
+            line-height: 22px;
+            cursor: pointer;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            word-wrap: normal;
+        }
+
+        .highLight {
+            background: #e2e2e2;
+        }
+
+
+        /*联想输入样式*/
+        .thinkDiv {
+            position: absolute;
+            z-index: 10000;
+            height:220px;
+            border:1px solid #cccccc;
+        }
+        .thinkIframe{
+            border: 0px;
+        }
+
+        .thinkParent{
+            position:relative;
+            z-index:100;
+        }

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>基础后台</title>
+    <script type="text/javascript" src="/newrx/medias/RX.load.js"></script>
+    <script type="text/javascript" src="/newrx/medias/src/plat/code/main/leftMenu.js"></script>
+    <script type="text/javascript">
+        RX.loadCSS({
+            template: "platMain",
+            module: "menu_bar"
+        });
+    </script>
+    <style type="text/css">
+        html,
+        body {
+            overflow: hidden;
+        }
+
+        /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 16px;
+            background-color: #0066cc;
+        }
+
+        /*定义滚动条轨道 内阴影+圆角*/
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            /*border-radius: 10px;*/
+            background-color: #F5F5F5;
+        }
+
+        /*定义滑块 内阴影+圆角*/
+        ::-webkit-scrollbar-thumb {
+            /*border-radius: 10px;*/
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+<div class="left_side" id="leftContent">
+    <div class="toggle_collapse">
+        <h2>功能菜单</h2>
+    </div>
+
+    <div class="nav_container" id="menu">
+        <ul class="ce" id="nav">
+        </ul>
+    </div>
+</div>
+<div class="right_content">
+    <iframe name="MainIframeR" id="MainIframeR" frameborder="0" width="100%" height="100%" scrolling="auto"></iframe>
+</div>
+<div class="shrink" title="隐藏主菜单"></div>
+<script type="text/javascript" src="/newrx/medias/src/plat/code/main/main.js"></script>
+<script type="text/javascript" language="javascript">
+    $(function () {
+        //初始化菜单内容区域高度
+        $(".nav_container").height($(window).height() - $(".toggle_collapse").outerHeight());
+    });
+    //页面大小改变时，触发jquery的resize方法，自适应拖拽
+    $(window).resize(function () {
+        $(".nav_container").height($(window).height() - $(".toggle_collapse").outerHeight());
+    });
+    $(function () {
+        var flag = 1;
+        //初始化尺寸
+        $(".right_content").width($(window).width() - $(".left_side").outerWidth() /*- $(".shrink").outerWidth()*/ - 1);
+        $(window).resize(function () {
+            if (flag == 1) {
+                $(".right_content").width($(window).width() - $(".left_side").outerWidth() /*- $(".shrink").outerWidth()*/ - 1);
+            } else {
+                $(".right_content").width($(window).width() /*- $(".shrink").outerWidth()*/ - 1);
+            }
+        });
+
+        //侧边栏
+        $(".shrink").click(function () {
+            if (flag == 1) {
+                $(".left_side").animate({marginLeft: -$(".left_side").width()}, "fast");
+                $(".shrink").animate({marginLeft: -$(".left_side").width()}, "fast").attr("title", "展开菜单栏").toggleClass("launched");
+                $(".right_content").animate({width: $(".right_content").width() + $(".left_side").width() - $(".shrink").outerWidth()}, "fast");
+                flag = 0;
+            } else {
+                $(".left_side").animate({marginLeft: 0}, "fast");
+                $(".shrink").animate({marginLeft: 0}, "fast").attr("title", "隐藏菜单栏").toggleClass("launched");
+                $(".right_content").animate({width: $(".right_content").width() - $(".left_side").width() + $(".shrink").outerWidth()}, "fast");
+                flag = 1;
+            }
+        });
+    })
+</script>
+</body>
+</html>
