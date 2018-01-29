@@ -2,8 +2,6 @@
  * 登录
  */
 $(function () {
-    //添加窗口层次管理
-    RX.addFrame(window.frames["MainIframe"]);
     //初始化内容区域高
     $("#leftMenu").height($(window).height() - 40);
     //生成一级菜单
@@ -92,5 +90,9 @@ function gotoUrl(obj, url) {
 
 //修改密码
 function changePassword() {
-    RX.openStack({title:"修改密码", areaType:"small", url:"leftMenu.html",shade:false});
+    RX.openStack({title:"修改密码", areaType:"small", url:"index.html",shade:false});
+}
+
+function closeStack(){
+    RX.closeStack();
 }

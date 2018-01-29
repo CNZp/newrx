@@ -1566,7 +1566,6 @@ if (_top.hasLayerManager) {
                 this.prevName = sPage.name;
                 sPage.nextName = this.name;
             }
-
             upperestName = this.name;
         }
 
