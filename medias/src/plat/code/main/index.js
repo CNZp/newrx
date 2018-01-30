@@ -98,7 +98,7 @@ function closeStack(){
 }
 
 function closeAllStack(){
-    RX.closeAll();
+    RX.form.closeAll();
 }
 
 function gotoForm(url){
@@ -113,3 +113,11 @@ function refreshForm(){
     RX.form.refresh();
 }
 
+function addChildParam1(){
+    RX.form.addChildParam({name:"MainIframe"},{a:"我是传参值1"})
+}
+
+function addChildParam2(){
+    RX.form.addChildParam({name:"MainIframeNo"},{a:"我是传参值1"})
+
+}

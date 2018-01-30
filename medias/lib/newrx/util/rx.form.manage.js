@@ -8,6 +8,10 @@
  * 最后更新时间：2018-01-29
  * 最后更新人：Zp
  * 更新内容：考虑控制窗口管理相关实现的作用域，将Form类移入本作用域
+ *
+ * 最后更新时间：2018-01-30
+ * 最后更新人：Zp
+ * 更新内容：实现表单管理与表单基本操作
  ******************************************************************/
 (function () {
     //注册别名：window/global
@@ -52,7 +56,7 @@
             window: null,   //对应window
             type: null,     //表单层次类型："frame"嵌套层，"stack"弹出层
             url: null,   //当前url
-            param: {},    //表单参数
+            param: {},    //表单参数,object型数据
             history: [],    //表单url历史
 
             //表单关系属性
@@ -108,6 +112,7 @@
             /**
              * 注册方法（计划表单页面运行时执行，更新关联窗口实例，插入实际对应窗口）
              * @param targetWin
+             * @returns {_Form} 表单实例
              */
             register: function (targetWin) {
                 RX.log(this.id + "_register");
@@ -120,13 +125,73 @@
                 this.afterRegister.apply(this, arguments);
                 return this;
             },
+            /**
+             * 注册方法后置
+             */
             afterRegister: function () {
             },
+            /**
+             * 表单布局自适应
+             * @returns {_Form} 表单实例
+             */
             resize: function () {
                 return this;
             },
             /**
-             * 子层表单方法：打开弹出层
+             * 子页传参方法
+             * （若子页表单实例存在，则调整其表单参数；若子页表单实例不存在，则初始化子页表单实例）
+             * @param childWin
+             * @param param
+             * @returns {*}
+             */
+            addChildParam: function(childWin,param){
+                var childId = childWin.id || (this.id + "_" + childWin.name),
+                    form = _formPool[childId];
+                if(form){
+                    form.param = $.extend(true, {}, param);
+                }else{
+                    form = new _Form(
+                        {id: childId},
+                        "frame", this.window, param);
+                    _formPool[form.id] = form;
+                }
+                return form;
+            },
+            /**
+             * 获取某个子层
+             * @param index 下标
+             * @returns {*} 表单实例
+             */
+            getChild:function(index) {
+                var index = parseInt(index || 0);
+                //若下标有效,则获取下标位的子层
+                if(!index.isNaN() && index >= 0 && index < this.child.length){
+                    return this.child[index];
+                }else{
+                    return null;
+                }
+            },
+            /**
+             * 获取某个兄弟层
+             * @param index 下标
+             * @returns {*} 表单实例
+             */
+            getBrother:function(index) {
+                if(!this.parent){
+                    return null;
+                }
+                //若本层为弹出层，则获取上层的下层作为备选组；若本层为嵌套层，则获取父层的子层作为备选组
+                var targetArr = this.type === "stack" ? this.prev.next : this.parent.child,
+                    index = parseInt(index || 0);
+                //若下标有效,则获取备选组中下标位对应的层
+                if(!index.isNaN() && index >= 0 && index < targetArr.length){
+                    return targetArr[index];
+                }else{
+                    return null;
+                }
+            },
+            /**
+             * 打开弹出层
              * @param options 弹出参数
              * @returns {*} 弹出层index
              */
@@ -179,11 +244,19 @@
                 _formPool[form.id] = form;
                 return index;
             },
+            /**
+             * 跳转路径
+             * @param url 待跳转地址
+             */
             goto: function (url) {
                 if (url) {
                     this.window.location.href = url;
                 }
             },
+            /**
+             * 回退路径
+             * @param num 回退次数，默认为1
+             */
             back: function (num) {
                 num = num || 1;
                 var history = this.history, backUrl = null;
@@ -196,6 +269,9 @@
                     this.window.location.href = backUrl;
                 }
             },
+            /**
+             * 刷新
+             */
             refresh: function () {
                 var backUrl = null;
                 if (this.history.length) {
@@ -206,9 +282,9 @@
                 }
             },
             /**
-             * 子层表单方法：关闭弹出层
+             * 关闭弹出层（本层开始）
              * @param num 关闭层数，默认为1
-             * @param reloadPrevTag 是否调用刷新方法
+             * @param reloadPrevTag 是否调用关闭上层刷新方法，默认为true
              */
             close: function (num, reloadPrevTag) {
                 /**
@@ -256,9 +332,15 @@
                     prevestForm.window.reloadTable();
                 }
             },
+            /**
+             * 关闭所有弹出层
+             */
             closeAll: function () {
                 layer.closeAll();
             },
+            /**
+             * 销毁表单实例
+             */
             destory: function () {
                 RX.log(this.id + "_destory");
                 var form = this;
@@ -324,31 +406,25 @@
 
         /**
          * 顶层表单方法：新增表单实例
-         * @param targetWin 待新增表单关联的window
+         * @param targetWin 待新增表单关联的window，默认为本层window
          * @returns {*} 表单实例
          */
         RX.addForm = function (targetWin) {
+            //默认为本层
             targetWin = targetWin || root;
+            //获取或创建初始化的表单实例
             var form = RX.getForm(_getFormId(targetWin)) || new _Form(targetWin);
+            //
             _formPool[form.id] = form;
             return form;
         }
-
-        /**
-         * 顶层表单方法：打开弹出层
-         * @param options 弹出参数
-         * @returns {*} 弹出层index
-         */
-        //原版窗口管理参数 RX.openStack = function (win, title, areaType, url, param, callBacks, offset) {
-        RX.openStack = function (options) {
-
-        };
 
     } else {    //引入页非顶层
 
         //注册别名：顶层RX命名空间
         var tRX = _top.RX;
 
+        //继承顶层：本层layer由顶层layer继承
         root.layer = _top.layer;
 
         /**

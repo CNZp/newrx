@@ -79,7 +79,7 @@ RX.config = {
     defaultLib: [
         "jquery","json2","underscore","tpl","validTip","perfectLoad",
         "global-util","data-util","date-util","dom-util","event-util","object-util",
-        "Base","Form","formManage-util"
+        "Base","formManage-util"
     ],
 
     // 设置别名，方便调用
