@@ -89,10 +89,27 @@ function gotoUrl(obj, url) {
 }
 
 //修改密码
-function changePassword() {
-    RX.openStack({title:"修改密码", areaType:"small", url:"index.html",shade:false});
+function openStack() {
+    RX.form.open({title:"增加弹层", areaType:"small", url:"index.html",shade:false});
 }
 
 function closeStack(){
-    RX.closeStack();
+    RX.form.close();
 }
+
+function closeAllStack(){
+    RX.closeAll();
+}
+
+function gotoForm(url){
+    RX.form.goto(url);
+}
+
+function backForm(){
+    RX.form.back();
+}
+
+function refreshForm(){
+    RX.form.refresh();
+}
+

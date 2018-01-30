@@ -4,22 +4,55 @@
  * 最后更新时间：2018-01-24
  * 最后更新人：Zp
  * 更新内容：创建文件
+ *
+ * 最后更新时间：2018-01-30
+ * 最后更新人：Zp
+ * 更新内容：增加装饰接口
  ******************************************************************/
 (function () {
-    // 创建一个全局对象, 在浏览器中表示为window对象, 在Node.js中表示global对象
-    var root = this;
-
-    //Form构造器
-    var Base = RX.Base = function(data){
+    /**
+     * 基础类构造器
+     * @type {RX.Base}
+     */
+    var Base = RX.Base = function(){
         // 调用initialize初始化方法
         this.initialize.apply(this, arguments);
     };
 
+    /**
+     * 基础类原型定义
+     * @type {{initialize: Base.initialize, makeup: Base.makeup}}
+     */
     Base.prototype = {
-        a: function(){alert("a")}
+        /**
+         * 初始化方法
+         * @returns {RX.Base}
+         */
+        initialize:function(){
+            return this;
+        },
+        /**
+         * 装饰方法
+         * @param options 需要增加的装饰内容
+         * @returns {RX.Base}
+         */
+        makeup: function(options){
+            if(typeof(options) === "object"){
+                for(var pro in options){
+                    this[pro] = options[pro];
+                }
+            }
+            return this;
+        }
     }
 
-    // 实现对象继承的函数, 该函数内部使用inherits实现继承, 请参考inherits函数
+    /**
+     * 基础类继承方法
+     * 实现对象继承的函数, 该函数内部使用inherits实现继承, 请参考inherits函数
+     * @param protoProps 设置子类原型链中的属性
+     * @param classProps 设置子类的静态属性
+     * @returns {*} 派生子类
+     */
     Base.extend = function (protoProps, classProps) {
         // child存储已经实现继承自当前类的子类(Function)
         // protoProps设置子类原型链中的属性
@@ -33,10 +66,14 @@
 
     // ctor是一个共享的空函数, 用于在调用inherits方法实现继承时, 承载父类的原型链以便设置到子类原型中
     var ctor = function () {};
-    // 实现OOP继承特性
-    // @param {Function} parent 被继承的父类Function
-    // @param {Object} protoProps 扩展子类原型中的属性(或方法)对象
-    // @param {Object} staticProps 扩展子类的静态属性(或方法)对象
+
+    /**
+     * 实现OOP继承特性
+     * @param parent 被继承的父类Function
+     * @param protoProps 扩展子类原型中的属性(或方法)对象
+     * @param staticProps 扩展子类的静态属性(或方法)对象
+     * @returns {*} 子类
+     */
     var inherits = function (parent, protoProps, staticProps) {
         var child;
 
